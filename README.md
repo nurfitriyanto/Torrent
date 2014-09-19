@@ -3,6 +3,16 @@ Torrent
 
 magnet2torrent and download torrent.
 
+```
+Usage: magnet2torrent.py [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -u URL, --url=URL     convert magnet link to torrent, like
+                        magnet:?xt=urn:btih:xxxx
+  -f FILE, --file=FILE  print torrent info
+```
+
 **Done:**
 
 - convert magnet url to torrent
