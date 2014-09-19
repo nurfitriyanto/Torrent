@@ -32,7 +32,7 @@ class Magnet2Torrent(object):
     magnet_hash = re.search(r"urn:btih:(.*)&dn=", self.magnet_url)
     if magnet_hash:
       torrent_url = "http://torrage.com/torrent/"+magnet_hash.group(1)+".torrent"
-      print "Torrent url is ===> %s" % (torrent_url)
+      print "\nTorrent url is ===> %s" % (torrent_url)
     else:
       print "Your input url is not magnet format.Please check it."
       sys.exit(1)
@@ -104,12 +104,12 @@ class RenameTorrent(object):
         s=string.lowercase+string.digits
         content_type = torrent_dic_new['info']['files'][i]["path"][0].split('.')[-1]
         content_name = ''.join(random.sample(s,32))
-        torrent_dic_new['info']['files'][i]["path"][0] = content_name + content_type
+        torrent_dic_new['info']['files'][i]["path"][0] = content_name + '.' + content_type
     except:
       n = len(torrent_dic_new['info']['name'].split('.'))
       content_type = '.'+torrent_dic_new['info']['name'].split('.')[-1] if n==2 else ''
     print "Before process,the content name is %s" % torrent_dic['info']['name']
-    torrent_dic_new['info']['name'] = datetime.datetime.now().strftime("%y%m%d_%H%M%S") + content_type
+    torrent_dic_new['info']['name'] = datetime.datetime.now().strftime("%y%m%d_%H%M%S")  + content_type
     print "After process,the content name is %s" % torrent_dic_new['info']['name']
     torrent_content_new = bencode.bencode(torrent_dic_new)
     with open(file_name,'wb') as f:
