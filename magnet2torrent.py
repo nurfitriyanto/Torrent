@@ -106,7 +106,8 @@ class RenameTorrent(object):
         content_name = ''.join(random.sample(s,32))
         torrent_dic_new['info']['files'][i]["path"][0] = content_name + content_type
     except:
-      
+      n = len(torrent_dic_new['info']['name'].split('.'))
+      content_type = '.'+torrent_dic_new['info']['name'].split('.')[-1] if n==2 else ''
     print "Before process,the content name is %s" % torrent_dic['info']['name']
     torrent_dic_new['info']['name'] = datetime.datetime.now().strftime("%y%m%d_%H%M%S") + content_type
     print "After process,the content name is %s" % torrent_dic_new['info']['name']
