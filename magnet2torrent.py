@@ -95,33 +95,42 @@ class RenameTorrent(object):
     else:
       sys.exit(0)
     
-  def random_name(self, torrent_dic):
-    torrent_dic_new = torrent_dic
-    file_name = self.torrent_file.split('.')[0]+'_random_name.torrent'
-    try:
-      length =  len(torrent_dic_new['info']['files'])
-      for i in range(0,length):
-        s=string.lowercase+string.digits
-        content_type = torrent_dic_new['info']['files'][i]["path"][-1].split('.')[-1]
-        content_name = ''.join(random.sample(s,32))
-        torrent_dic_new['info']['files'][i]["path"][-1] = content_name + '.' + content_type
-        torrent_dic_new['info']['files'][i]["path"][0] = content_name + '.' + content_type
-        if "path.utf-8" in torrent_dic_new['info']['files'][i]:
-          content_type1 = torrent_dic_new['info']['files'][i]["path.utf-8"][-1].split('.')[-1]
-          torrent_dic_new['info']['files'][i]["path.utf-8"][0] = content_name + '.' + content_type1
+  # def random_name(self, torrent_dic):
+  #   torrent_dic_new = torrent_dic
+  #   file_name = self.torrent_file.split('.')[0]+'_random_name.torrent'
+  #   try:
+  #     length =  len(torrent_dic_new['info']['files'])
+  #     for i in range(0,length):
+  #       s=string.lowercase+string.digits
+  #       n = len(torrent_dic_new['info']['files'][i]["path"][-1].split('.'))
+  #       content_type = torrent_dic_new['info']['files'][i]["path"][-1].split('.')[-1] if n==2 else ''
+  #       content_name = ''.join(random.sample(s,32))
+  #       torrent_dic_new['info']['files'][i]["path"][-1] = content_name + '.' + content_type
+  #       torrent_dic_new['info']['files'][i]["path"][0] = content_name
+  #       if "path.utf-8" in torrent_dic_new['info']['files'][i]:
+  #         # n1 = len(torrent_dic_new['info']['files'][i]["path.utf-8"][-1].split('.'))
+  #         # content_type1 = torrent_dic_new['info']['files'][i]["path.utf-8"][-1].split('.')[-1] if n1==2 else ''
+  #         torrent_dic_new['info']['files'][i]["path.utf-8"] = content_name
+  #       # elif "ed2k" in torrent_dic_new['info']['files'][i]:
+  #         # n2 = len(torrent_dic_new['info']['files'][i]["ed2k"][-1].split('.'))
+  #         # content_type2 = torrent_dic_new['info']['files'][i]["ed2k"][-1].split('.')[-1] if n2==2 else ''
+  #         torrent_dic_new['info']['files'][i]["ed2k"] = content_name
+  #         torrent_dic_new['info']['files'][i]["filehash"] = content_name
 
-    except:
-      n = len(torrent_dic_new['info']['name'].split('.'))
-      content_type = '.'+torrent_dic_new['info']['name'].split('.')[-1] if n==2 else ''
-    print "Before process,the content name is %s" % torrent_dic['info']['name']
-    torrent_dic_new['info']['name'] = datetime.datetime.now().strftime("%y%m%d_%H%M%S")  + content_type
-    print "After process,the content name is %s" % torrent_dic_new['info']['name']
-    torrent_content_new = bencode.bencode(torrent_dic_new)
-    with open(file_name,'wb') as f:
-      f.write(torrent_content_new)
+  #   except:
+  #     n = len(torrent_dic_new['info']['name'].split('.'))
+  #     content_type = '.'+torrent_dic_new['info']['name'].split('.')[-1] if n==2 else ''
+  #   if torrent_dic_new['info']['name.utf-8']:
+  #     torrent_dic_new['info']['name.utf-8'] = content_name
+  #   print "Before process,the content name is %s" % torrent_dic['info']['name']
+  #   torrent_dic_new['info']['name'] = datetime.datetime.now().strftime("%y%m%d_%H%M%S")  + content_type
+  #   print "After process,the content name is %s" % torrent_dic_new['info']['name']
+  #   torrent_content_new = bencode.bencode(torrent_dic_new)
+  #   with open(file_name,'wb') as f:
+  #     f.write(torrent_content_new)
     
-  # def pinyin_name(self, torrent_dic):
-  # def poem_name(self, torrent_dic):
+  # # def pinyin_name(self, torrent_dic):
+  # # def poem_name(self, torrent_dic):
       
 if __name__ == "__main__":
   parser = OptionParser()
@@ -136,9 +145,9 @@ if __name__ == "__main__":
     magnet2torrent = Magnet2Torrent(options.url)
     magnet2torrent.get_hash()
   
-  elif options.file:
-    torrentinfo = RenameTorrent(options.file)
-    torrentinfo.torrent_info()
+  # elif options.file:
+  #   torrentinfo = RenameTorrent(options.file)
+  #   torrentinfo.torrent_info()
     
   else:
     parser.error("use -h or --help for help information")
