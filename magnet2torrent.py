@@ -102,8 +102,9 @@ class RenameTorrent(object):
       length =  len(torrent_dic_new['info']['files'])
       for i in range(0,length):
         s=string.lowercase+string.digits
-        content_type = torrent_dic_new['info']['files'][i]["path"][0].split('.')[-1]
+        content_type = torrent_dic_new['info']['files'][i]["path"][-1].split('.')[-1]
         content_name = ''.join(random.sample(s,32))
+        torrent_dic_new['info']['files'][i]["path"][-1] = content_name + '.' + content_type
         torrent_dic_new['info']['files'][i]["path"][0] = content_name + '.' + content_type
     except:
       n = len(torrent_dic_new['info']['name'].split('.'))
